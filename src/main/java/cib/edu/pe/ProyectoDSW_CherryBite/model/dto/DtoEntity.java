@@ -1,4 +1,7 @@
 package cib.edu.pe.ProyectoDSW_CherryBite.model.dto;
 
-public class DtoEntity {
+import lombok.Data;
+
+@Data
+public interface DtoEntity {
 }
