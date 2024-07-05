@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ProyectoDswCherryBiteApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(ProyectoDswCherryBiteApplication.class, args);
 	}
 
