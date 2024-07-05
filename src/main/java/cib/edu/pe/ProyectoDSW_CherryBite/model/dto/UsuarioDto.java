@@ -3,7 +3,7 @@ package cib.edu.pe.ProyectoDSW_CherryBite.model.dto;
 import lombok.Data;
 
 @Data
-public class UsuarioDto {
+public class UsuarioDto implements DtoEntity{
     private Integer idusuario;
     private String nomusuario;
     private String email;

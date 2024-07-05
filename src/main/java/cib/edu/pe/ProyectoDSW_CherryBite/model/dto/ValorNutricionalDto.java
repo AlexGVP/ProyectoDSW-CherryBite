@@ -3,7 +3,7 @@ package cib.edu.pe.ProyectoDSW_CherryBite.model.dto;
 import lombok.Data;
 
 @Data
-public class ValorNutricionalDto {
+public class ValorNutricionalDto implements DtoEntity{
     private Integer idvalornutricional;
     private Double calorias;
     private Double proteinas;

@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class DetalleAlimentoDto {
+public class DetalleAlimentoDto implements DtoEntity{
     private Integer idusuario;
     private Integer idalimento;
     private Date fecha;

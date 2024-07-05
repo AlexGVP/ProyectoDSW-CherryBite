@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Set;
 
 @Data
-public class CategoriaDto {
+public class CategoriaDto implements DtoEntity{
     private Integer idcategoria;
     private String descripcion;
     private Set<HabitoDto> habitos;
