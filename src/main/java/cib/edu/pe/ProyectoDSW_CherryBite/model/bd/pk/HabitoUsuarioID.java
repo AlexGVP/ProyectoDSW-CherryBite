@@ -1,4 +1,15 @@
 package cib.edu.pe.ProyectoDSW_CherryBite.model.bd.pk;
 
-public class HabitoUsuarioID {
+import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serializable;
+
+@Getter
+@Setter
+@Embeddable
+public class HabitoUsuarioID implements Serializable {
+    private Integer idpersona;
+    private Integer idhabito;
 }
