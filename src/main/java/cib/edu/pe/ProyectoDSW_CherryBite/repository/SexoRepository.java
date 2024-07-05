@@ -1,4 +1,7 @@
 package cib.edu.pe.ProyectoDSW_CherryBite.repository;
 
-public interface SexoRepository {
+import cib.edu.pe.ProyectoDSW_CherryBite.model.bd.Sexo;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SexoRepository extends JpaRepository<Sexo, Integer> {
 }

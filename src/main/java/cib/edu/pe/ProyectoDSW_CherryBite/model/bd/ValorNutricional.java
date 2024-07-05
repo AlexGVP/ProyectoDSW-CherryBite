@@ -18,13 +18,13 @@ public class ValorNutricional {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idvalornutricional;
 
-    private BigDecimal calorias;
-    private BigDecimal proteinas;
-    private BigDecimal grasas;
-    private BigDecimal carbohidratos;
-    private BigDecimal colesterol;
-    private BigDecimal sodio;
-    private BigDecimal potasio;
+    private Double  calorias;
+    private Double  proteinas;
+    private Double  grasas;
+    private Double  carbohidratos;
+    private Double  colesterol;
+    private Double  sodio;
+    private Double  potasio;
 
     @OneToMany(mappedBy = "valorNutricional",
             cascade = CascadeType.ALL, orphanRemoval = true)
