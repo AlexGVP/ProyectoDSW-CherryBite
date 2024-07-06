@@ -17,5 +17,5 @@ public class AlimentoDto implements DtoEntity {
     private Double colesterolValorNutricional;
     private Double sodioValorNutricional;
     private Double potasioValorNutricional;
-    private Integer descripcionUnidadMedida;
+    private String descripcionUnidadMedida;
 }

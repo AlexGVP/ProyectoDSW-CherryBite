@@ -16,7 +16,6 @@ import java.util.Date;
 public class DetalleHabito implements Serializable {
     @EmbeddedId
     private HabitoUsuarioID id;
-    private Boolean realizado;
     private Date fecha;
 
     @ManyToOne

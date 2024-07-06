@@ -144,31 +144,25 @@ INSERT INTO `usuario_rol` VALUES (1,1),(2,2),(3,3);
 
 DROP TABLE IF EXISTS `detalle_alimento`;
 CREATE TABLE `detalle_alimento` (
-  `iddetalle_alimento` int NOT NULL AUTO_INCREMENT,
   `fecha` date DEFAULT NULL,
   `cantidad` int DEFAULT NULL,
   `idalimento` int NOT NULL,
   `idusuario` int NOT NULL,
-  PRIMARY KEY (`iddetalle_alimento`),
-  KEY `idalimento` (`idalimento`),
-  KEY `idusuario` (`idusuario`),
+  PRIMARY KEY (`idalimento`,`idusuario`),
   CONSTRAINT `detalle_alimento_ibfk_1` FOREIGN KEY (`idalimento`) REFERENCES `alimento` (`idalimento`),
   CONSTRAINT `detalle_alimento_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`)
 );
 INSERT INTO `detalle_alimento` VALUES 
-(1,'2024-07-01',2,1,1),(2,'2024-07-01',1,2,2),(3,'2024-07-01',3,3,3);
+('2024-07-01',2,1,1),('2024-07-01',1,2,2),('2024-07-01',3,3,3);
 
 DROP TABLE IF EXISTS `detalle_habito`;
 CREATE TABLE `detalle_habito` (
-  `iddetalle_habito` int NOT NULL AUTO_INCREMENT,
   `fecha` date DEFAULT NULL,
   `idhabito` int NOT NULL,
   `idusuario` int NOT NULL,
-  PRIMARY KEY (`iddetalle_habito`),
-  KEY `idhabito` (`idhabito`),
-  KEY `idusuario` (`idusuario`),
+  PRIMARY KEY (`idhabito`,`idusuario`),
   CONSTRAINT `detalle_habito_ibfk_1` FOREIGN KEY (`idhabito`) REFERENCES `habito` (`idhabito`),
   CONSTRAINT `detalle_habito_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`)
 );
 INSERT INTO `detalle_habito` VALUES 
-(1,'2024-07-01',1,1),(2,'2024-07-01',2,2),(3,'2024-07-01',3,3);
+('2024-07-01',1,1),('2024-07-01',2,2),('2024-07-01',3,3);
