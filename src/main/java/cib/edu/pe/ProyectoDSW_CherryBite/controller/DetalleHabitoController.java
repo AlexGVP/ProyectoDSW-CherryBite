@@ -1,5 +1,8 @@
 package cib.edu.pe.ProyectoDSW_CherryBite.controller;
 
+import cib.edu.pe.ProyectoDSW_CherryBite.model.bd.DetalleAlimento;
+import cib.edu.pe.ProyectoDSW_CherryBite.model.bd.DetalleHabito;
+import cib.edu.pe.ProyectoDSW_CherryBite.model.dto.DetalleAlimentoDto;
 import cib.edu.pe.ProyectoDSW_CherryBite.model.dto.DetalleHabitoDto;
 import cib.edu.pe.ProyectoDSW_CherryBite.model.dto.DtoEntity;
 import cib.edu.pe.ProyectoDSW_CherryBite.service.IDetalleHabitoService;
@@ -35,5 +38,15 @@ public class DetalleHabitoController {
         }
 
         return new ResponseEntity<>(detalleHabitoDtoList, HttpStatus.OK);
+    }
+
+    @PostMapping("/registrar")
+    public ResponseEntity<DetalleHabito> registrarHabito(@RequestBody DetalleHabitoDto detalleHabitoDto) {
+        try {
+            DetalleHabito detalleHabito = iDetalleHabitoService.registrarHabito(detalleHabitoDto);
+            return new ResponseEntity<>(detalleHabito, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
