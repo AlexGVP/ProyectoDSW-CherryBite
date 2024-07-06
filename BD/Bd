@@ -18,12 +18,6 @@ create table valornutricional
 	potasio              decimal(10,2)
 );
 
-create table sexo
-(
-	idsexo               int not null primary key auto_increment,
-	descripcion          varchar(45)
-);
-
 create table usuario
 (
 	idusuario            int not null primary key auto_increment,
@@ -32,13 +26,7 @@ create table usuario
 	password             varchar(300),
 	nombres              varchar(100),
 	apellidos            varchar(100),
-	activo               tinyint(1),
-    peso                 int,
-	altura               int,
-	imc                  int,
-	edad                 int,
-	idsexo               int not null,
-	foreign key (idsexo) references sexo(idsexo)
+	activo               tinyint(1)
 );
 create table rol
 (

@@ -20,31 +20,20 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(path = "apiweb/cherry/noticia")
+@RequestMapping(path = "api/cherry/noticia")
 public class NoticiaController {
-
-    private NoticiaService noticiaService;
-    private INoticiaService iNoticiaService;
-    private NoticiaRepository noticiaRepository;
-    private DtoUtil dtoUtil;
+    INoticiaService iNoticiaService;
 
     @GetMapping("")
-    public ResponseEntity<List<Noticia>> listResponsenoticia(){
-        List<Noticia> noticiaList=new ArrayList<>(noticiaService.noticiaList());
-        if (noticiaList.isEmpty()){return  new ResponseEntity<>(HttpStatus.NO_CONTENT);}
-        return new ResponseEntity<>(noticiaList,HttpStatus.OK);
-    }
-
-    @GetMapping("")
-    public ResponseEntity<List<DtoEntity>> listarNoticiaDto(){
-        List<DtoEntity> noticiaDtoList = new ArrayList<>();
-        noticiaDtoList = iNoticiaService.noticiaList()
+    public ResponseEntity<List<DtoEntity>> getAllNoticias(){
+        List<DtoEntity>noticiaDtoList=new ArrayList<>();
+        noticiaDtoList=iNoticiaService.noticiaList()
                 .stream()
                 .map(x -> new DtoUtil().convertirADto(x,new NoticiaDto()))
                 .collect(Collectors.toList());
-        if(noticiaDtoList.isEmpty())
+        if(noticiaDtoList.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         return new ResponseEntity<>(noticiaDtoList, HttpStatus.OK);
     }
-
 }

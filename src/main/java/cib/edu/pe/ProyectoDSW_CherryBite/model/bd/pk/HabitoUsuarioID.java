@@ -10,6 +10,6 @@ import java.io.Serializable;
 @Setter
 @Embeddable
 public class HabitoUsuarioID implements Serializable {
-    private Integer idpersona;
+    private Integer idusuario;
     private Integer idhabito;
 }

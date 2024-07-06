@@ -23,14 +23,7 @@ public class Usuario {
     private String nombres;
     private String apellidos;
     private Boolean activo;
-    private Integer peso;
-    private Integer altura;
-    private Integer imc;
-    private Integer edad;
 
-    @ManyToOne
-    @JoinColumn(name = "idsexo")
-    private Sexo sexo;
 
     @OneToMany(mappedBy = "usuario",
             cascade = CascadeType.ALL, orphanRemoval = true)

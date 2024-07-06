@@ -8,9 +8,9 @@ INSERT INTO rol (nomrol) VALUES
     ('MUJER');
 
     INSERT INTO usuario () VALUES
-    (1,'chiszo', 'usuario1@example.com', '$2a$12$VTfCXTWnGcBV6G5.nYowgODiHF8m2bzj8jDbzisLDnwfakwd4nBVS', 'Gibeth', 'Peña', 1,60,160,23.4,21,2),
-    (2,'tijera', 'usuario2@example.com', '$2a$12$VTfCXTWnGcBV6G5.nYowgODiHF8m2bzj8jDbzisLDnwfakwd4nBVS', 'María', 'Querevalu', 1,60,160,23.4,20,2),
-    (3,'holamundo', 'usuario3@example.com', '$2a$12$VTfCXTWnGcBV6G5.nYowgODiHF8m2bzj8jDbzisLDnwfakwd4nBVS', 'Alexandra', 'Vilchez', 1,60,160,23.4,20,2);
+    (1,'chiszo', 'usuario1@example.com', '$2a$12$VTfCXTWnGcBV6G5.nYowgODiHF8m2bzj8jDbzisLDnwfakwd4nBVS', 'Gibeth', 'Peña', 1),
+    (2,'tijera', 'usuario2@example.com', '$2a$12$VTfCXTWnGcBV6G5.nYowgODiHF8m2bzj8jDbzisLDnwfakwd4nBVS', 'María', 'Querevalu', 1),
+    (3,'holamundo', 'usuario3@example.com', '$2a$12$VTfCXTWnGcBV6G5.nYowgODiHF8m2bzj8jDbzisLDnwfakwd4nBVS', 'Alexandra', 'Vilchez', 1);
 
 INSERT INTO usuario_rol (idusuario, idrol) VALUES
     (1, 1),

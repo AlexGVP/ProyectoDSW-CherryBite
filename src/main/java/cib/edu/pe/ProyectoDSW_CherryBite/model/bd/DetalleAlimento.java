@@ -18,10 +18,10 @@ public class DetalleAlimento {
     private Date fecha;
 
     @ManyToOne
-    @MapsId("idpersona")
-    @JoinColumn(name = "idpersona")
+    @MapsId("idusuario")
+    @JoinColumn(name = "idusuario")
     @JsonBackReference
-    private Usuario persona;
+    private Usuario usuario;
 
     @ManyToOne
     @MapsId("idalimento")
