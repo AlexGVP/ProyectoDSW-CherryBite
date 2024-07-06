@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
 @RequestMapping(path = "/api/cherry/detalleHabito")
 public class DetalleHabitoController {
 
-    @Autowired
+
     private IDetalleHabitoService iDetalleHabitoService;
 
-    @GetMapping
+    @GetMapping("")
     public ResponseEntity<List<DtoEntity>> getAllDetalles() {
         List<DtoEntity> detalleHabitoDtoList = new ArrayList<>();
         detalleHabitoDtoList = iDetalleHabitoService.listarDetalleHabito()
