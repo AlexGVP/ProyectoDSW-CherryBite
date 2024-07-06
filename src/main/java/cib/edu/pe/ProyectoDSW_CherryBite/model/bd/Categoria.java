@@ -16,7 +16,6 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idcategoria;
-
     private String descripcion;
 
     @OneToMany(mappedBy = "categoria",
@@ -24,3 +23,4 @@ public class Categoria {
     @JsonManagedReference
     private Set<Habito> habitos = new HashSet<>();
 }
+

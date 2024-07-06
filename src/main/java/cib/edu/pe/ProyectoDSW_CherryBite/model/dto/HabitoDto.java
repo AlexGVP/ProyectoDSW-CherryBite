@@ -8,7 +8,7 @@ import java.util.Date;
 public class HabitoDto implements DtoEntity{
     private Integer idhabito;
     private String descripcion;
-    private Integer idcategoria;
+    private Integer idcategoriaCategoria;
     private String frecuencia;
     private Date horadia;
     private Date fechainicio;

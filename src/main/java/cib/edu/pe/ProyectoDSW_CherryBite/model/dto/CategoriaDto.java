@@ -8,5 +8,4 @@ import java.util.Set;
 public class CategoriaDto implements DtoEntity{
     private Integer idcategoria;
     private String descripcion;
-    private Set<HabitoDto> habitos;
 }

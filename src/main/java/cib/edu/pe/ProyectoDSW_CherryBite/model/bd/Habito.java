@@ -26,8 +26,7 @@ public class Habito {
     private Date fechafin;
     private Integer progreso;
 
-    @OneToMany(mappedBy = "habito",
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "habito", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private Set<DetalleHabito> habitos = new HashSet<>();
 }
