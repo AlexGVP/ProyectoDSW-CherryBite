@@ -9,11 +9,12 @@ public class AlimentoDto implements DtoEntity {
     private Integer porcion;
     private String descripcion;
     private String imagen;
-    private Double calorias;
-    private Double proteinas;
-    private Double grasas;
-    private Double carbohidratos;
-    private Double colesterol;
-    private Double sodio;
-    private Double potasio;
+    private String descripcionGrupoAlimento;
+    private Double caloriasValorNutricional;
+    private Double proteinasValorNutricional;
+    private Double grasasValorNutricional;
+    private Double carbohidratosValorNutricional;
+    private Double colesterolValorNutricional;
+    private Double sodioValorNutricional;
+    private Double potasioValorNutricional;
 }
