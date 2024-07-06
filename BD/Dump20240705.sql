@@ -135,18 +135,35 @@ INSERT INTO habito (idhabito,descripcion, idcategoria, frecuencia, horadia, fech
     (15,'Hábito 15', 5, 'Diario', '13:00:00', '2023-01-15', '2023-08-31', 68);
 
 DROP TABLE IF EXISTS `noticia`;
-CREATE TABLE `noticia` (
-  `idnoticia` int NOT NULL AUTO_INCREMENT,
-  `titular` varchar(100) DEFAULT NULL,
-  `resumen` text,
-  `contenido` text,
-  `imagen` varchar(500) DEFAULT NULL,
-  PRIMARY KEY (`idnoticia`)
+create table noticia
+( 
+	idnoticia             int not null primary key auto_increment,
+	titulo          varchar(45),
+	descripcion      varchar(300),
+	imagen           varchar(500),
+	fecha              date
 );
-INSERT INTO `noticia` VALUES 
-(1,'Nueva dieta mediterránea','Investigadores descubren nuevos beneficios de la dieta mediterránea','La dieta mediterránea ha sido objeto de estudio durante décadas y sus beneficios para la salud son ampliamente reconocidos. Un nuevo estudio ha revelado que esta dieta puede mejorar significativamente la salud cardiovascular y reducir el riesgo de enfermedades crónicas.','https://www.dietamediterranea.com/uploads/pics/food-mediterranean.jpg'),
-(2,'Ejercicio y salud mental','El impacto del ejercicio en la salud mental','El ejercicio no solo es beneficioso para el cuerpo, sino también para la mente. Diversos estudios han demostrado que la actividad física regular puede reducir los síntomas de la depresión y la ansiedad, mejorando así la calidad de vida de las personas.','https://www.ejercicioysalud.com/uploads/pics/exercise-mental-health.jpg'),
-(3,'Consumo de frutas y verduras','La importancia de consumir frutas y verduras a diario','Las frutas y verduras son esenciales en una dieta equilibrada. Aportan vitaminas, minerales y fibra que son fundamentales para el buen funcionamiento del organismo.','https://www.consumodefrutasyverduras.com/uploads/pics/frutas-verduras.jpg');
+INSERT INTO noticia (titulo, descripcion, imagen, fecha) VALUES
+('Beneficios de la Manzana', 'Descubre cómo una manzana al día puede mejorar tu salud.', 'https://www.prensalibre.com/wp-content/uploads/2023/12/Beneficios-de-comer-una-manzana-diaria.jpg?quality=52', '2024-06-01'),
+('Superalimentos para el Corazón', 'Alimentos que ayudan a mantener un corazón saludable.', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPzSNQ0ax-kxlZ67FTmwJH6tD_WH2Aj_f5WQ&s', '2024-06-02'),
+('Dieta Mediterránea', 'Conoce los beneficios de seguir una dieta mediterránea.', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiTfirl8DCQr5lnOgYK3p7uBuF7r15y1Ok8Q&s', '2024-06-03'),
+('Importancia del Desayuno', '¿Por qué no debes saltarte el desayuno?', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4-tRDfGjZQBaMaALcEm30KuKvJFid4KX7YA&s', '2024-06-04'),
+('Alimentos Ricos en Fibra', 'Mejora tu digestión con estos alimentos ricos en fibra.', 'https://i.blogs.es/7dcb4a/fruta-fibra/1366_2000.jpg', '2024-06-05'),
+('Reducir el Consumo de Azúcar', 'Consejos para reducir la ingesta de azúcar en tu dieta.', 'https://elcomercio.pe/resizer/873uMQW9ndmWoLXCRvdXTahqMSc=/1200x900/smart/filters:format(jpeg):quality(75)/arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/A35OONAGORGL3O3S76JMSYH5IQ.jpg', '2024-06-06'),
+('Beneficios del Té Verde', 'El té verde y sus propiedades antioxidantes.', 'https://static.tuasaude.com/media/article/yp/dt/beneficios-del-te-verde_17350_l.jpg', '2024-06-07'),
+('Pescado: Fuente de Omega-3', 'La importancia de incluir pescado en tu dieta.', 'https://esenciadelmar.es/wp-content/uploads/2023/08/formas-cocinar-pescado-1200x700.jpg', '2024-06-08'),
+('Frutas Cítricas y la Vitamina C', 'Cómo las frutas cítricas fortalecen tu sistema inmunológico.', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWi9O5Ho88H0lJngzIPCFUapMDSmzsudXHBg&s', '2024-06-09'),
+('Hidratación Adecuada', 'La importancia de mantener una buena hidratación.', 'https://www.pescanova.pe/wp-content/uploads/2021/08/como-hidratarse-en-el-verano-1.jpg', '2024-06-10'),
+('Vegetales de Hoja Verde', 'Beneficios de los vegetales de hoja verde en tu dieta.', 'https://www.lavanguardia.com/files/og_thumbnail/uploads/2016/07/15/5fa2cf97121ce.jpeg', '2024-06-11'),
+('Comida Rápida Saludable', 'Opciones de comida rápida que no perjudican tu salud.', 'https://www.clarin.com/2022/08/17/QoyfI4ouM_2000x1500__1.jpg', '2024-06-12'),
+('Nueces y Semillas', 'Incluye nueces y semillas en tu dieta diaria.', 'https://www.revistamoi.com/wp-content/uploads/2019/08/nueces.jpg', '2024-06-13'),
+('Alimentos para la Salud Cerebral', 'Mejora tu memoria con estos alimentos.', 'https://www.mgc.es/wp-content/uploads/2020/12/alimentos-para-la-memoria-THUMBNAIL2-1-1-1200x900.jpg', '2024-06-14'),
+('Proteínas Vegetales', 'Alternativas vegetales para obtener proteínas.', 'https://www.kibofoods.com.co/wp-content/uploads/2021/02/ejemplos-de-proteinas-vegetales-para-incluir-en-tu-alimentacion-diaria-.jpg', '2024-06-15'),
+('Planificación de Comidas', 'Cómo planificar tus comidas de manera saludable.', 'https://gnd-content.dev/blog/wp-content/uploads/2023/02/MENU-SEMANAL-4.jpg', '2024-06-16'),
+('Reducir el Consumo de Sal', 'Consejos para disminuir la sal en tus comidas.', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ34phA9JHOthCyU1Hx6HAMS4p1sRfxmCeDgg&s', '2024-06-17'),
+('Beneficios del Agua de Coco', 'Propiedades hidratantes y nutritivas del agua de coco.', 'https://www.clarin.com/2023/05/23/O1ysSpFFh_1200x0__1.jpg', '2024-06-18'),
+('Alimentos Probióticos', 'Mejora tu salud intestinal con probióticos.', 'https://statics-cuidateplus.marca.com/cms/images/alimentos-fibra.jpg', '2024-06-19'),
+('Hábitos Alimenticios Saludables', 'Consejos para mantener hábitos alimenticios saludables a largo plazo.', 'https://cdn.aarp.net/content/dam/aarp/health/healthy-living/2021/05/1140-health-calendar-reset-esp.jpg', '2024-06-20');
 
 DROP TABLE IF EXISTS `usuario_rol`;
 CREATE TABLE `usuario_rol` (
