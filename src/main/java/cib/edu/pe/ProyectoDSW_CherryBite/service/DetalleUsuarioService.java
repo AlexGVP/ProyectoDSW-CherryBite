@@ -1,6 +1,5 @@
 package cib.edu.pe.ProyectoDSW_CherryBite.service;
 
-
 import cib.edu.pe.ProyectoDSW_CherryBite.model.bd.Rol;
 import cib.edu.pe.ProyectoDSW_CherryBite.model.bd.Usuario;
 import cib.edu.pe.ProyectoDSW_CherryBite.repository.UsuarioRepository;
@@ -14,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -23,36 +23,36 @@ public class DetalleUsuarioService implements UserDetailsService {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
-        Usuario usuario = obtenerUsuarioXNombreusuario(username);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Usuario usuario = usuarioRepository.findByNomusuario(username);
         return autenticacionUsuario(
-                usuario,obtenerListaRoles(usuario.getRoles())
+                usuario,
+                obtenerListaRolesUsuario(usuario.getRoles())
         );
     }
-
-    public Usuario obtenerUsuarioXNombreusuario(String nomusuario){
-        return usuarioRepository.findByNomusuario(nomusuario);
+    public List<GrantedAuthority> obtenerListaRolesUsuario(Set<Rol> listRoles) {
+        Set<GrantedAuthority> roles = new HashSet<GrantedAuthority>();
+        for (Rol rol : listRoles) {
+            roles.add(new SimpleGrantedAuthority(rol.getNomrol()));
+        }
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles);
+        return grantedAuthorities;
     }
 
-    public List<GrantedAuthority>obtenerListaRoles(Set<Rol> roles){
-        List<GrantedAuthority> authorityList = new ArrayList<>();
-        for (Rol rol : roles){
-            authorityList.add(new
-                    SimpleGrantedAuthority("ROLE_"+ rol.getNomrol()));
-        }
-        return authorityList;
+
+    public Usuario findByNomusuario(String usuario){
+        return usuarioRepository.findByNomusuario(usuario);
     }
 
     private UserDetails autenticacionUsuario(
-            Usuario usuario, List<GrantedAuthority> authorityList
-    ){
-        return new User(
-                usuario.getNomusuario(),
+            Usuario usuario, List<GrantedAuthority> authorityList) {
+        UserDetails userDetails = new User(usuario.getNomusuario(),
                 usuario.getPassword(),
-                usuario.getActivo(),
-                true,true,true,
-                authorityList
-        );
+                true,
+                true,
+                true,
+                true, authorityList);
+        return userDetails;
     }
+
 }

@@ -1,7 +1,7 @@
 package cib.edu.pe.ProyectoDSW_CherryBite.controller;
 
 import cib.edu.pe.ProyectoDSW_CherryBite.model.bd.Usuario;
-import cib.edu.pe.ProyectoDSW_CherryBite.model.dto.UsuarioSeguridadDto;
+import cib.edu.pe.ProyectoDSW_CherryBite.model.response.UsuarioResponse;
 import cib.edu.pe.ProyectoDSW_CherryBite.service.DetalleUsuarioService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -12,11 +12,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,47 +27,48 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
 
-    @GetMapping("/login")
-    public ResponseEntity<UsuarioSeguridadDto>autenticarUsuario(
+    @PostMapping("/login")
+    @Transactional(readOnly = true)
+    public ResponseEntity<UsuarioResponse> autenticarUsuario(
             @RequestParam("usuario") String usuario,
             @RequestParam("password") String password
-    ) throws Exception{
-        try {
+    ) throws Exception {
+        try{
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            usuario,password
-                    ));
-            if (authentication.isAuthenticated()){
-                Usuario objUsuario = detalleUsuarioService
-                        .obtenerUsuarioXNombreusuario(usuario);
+                            usuario,
+                            password));
+            if(authentication.isAuthenticated()){
+                Usuario objUsuario = detalleUsuarioService.findByNomusuario(usuario);
                 String token = generarToken(objUsuario);
-                UsuarioSeguridadDto usuarioSeguridadDto =
-                        new UsuarioSeguridadDto(
-                                objUsuario.getIdusuario(),
-                                usuario,token
-                        );
-                return  new ResponseEntity<>(usuarioSeguridadDto, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+                UsuarioResponse usuarioResponse =
+                        new UsuarioResponse(objUsuario.getIdusuario(),
+                                usuario,
+                                token);
+                return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
+            }else {
+                return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
             }
-        } catch (Exception ex){
-            throw new Exception("Usuario y/o password incorrecto");
+        }catch (Exception ex){
+            throw new Exception("Usuario y/o password incorrecto.");
         }
     }
 
-    private  String generarToken(Usuario usuario){
-        String clave="@chispa";
-        List<GrantedAuthority>grantedAuthorityList=
-                detalleUsuarioService.obtenerListaRoles(usuario.getRoles());
-        String token = Jwts.builder()
-                .setId(usuario.getNomusuario())
+    private String generarToken(Usuario objUsuario){
+        String clave = "@Cibertec2024"; // dinamico desde la BD
+        List<GrantedAuthority> grantedAuthorityList =
+                detalleUsuarioService.obtenerListaRolesUsuario(objUsuario.getRoles());
+        String token = Jwts
+                .builder()
+                .setId(objUsuario.getIdusuario().toString())
+                .setSubject(objUsuario.getNomusuario())
                 .claim("authorities",
                         grantedAuthorityList.stream()
                                 .map(GrantedAuthority::getAuthority)
                                 .collect(Collectors.toList())
                 )
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+300000))
+                .setExpiration(new Date(System.currentTimeMillis()+ 1800000))
                 .signWith(SignatureAlgorithm.HS512, clave.getBytes())
                 .compact();
         return token;
