@@ -2,8 +2,15 @@ package cib.edu.pe.ProyectoDSW_CherryBite.controller;
 
 import cib.edu.pe.ProyectoDSW_CherryBite.exception.ResourceNotFoundException;
 import cib.edu.pe.ProyectoDSW_CherryBite.model.bd.Usuario;
+import cib.edu.pe.ProyectoDSW_CherryBite.model.dto.AlimentoDto;
+import cib.edu.pe.ProyectoDSW_CherryBite.model.dto.DtoEntity;
+import cib.edu.pe.ProyectoDSW_CherryBite.model.dto.UsuarioDto;
 import cib.edu.pe.ProyectoDSW_CherryBite.model.response.ApiResponse;
+import cib.edu.pe.ProyectoDSW_CherryBite.service.IAlimentoService;
+import cib.edu.pe.ProyectoDSW_CherryBite.service.IDetalleAlimentoService;
+import cib.edu.pe.ProyectoDSW_CherryBite.service.IUsuarioService;
 import cib.edu.pe.ProyectoDSW_CherryBite.service.UsuarioService;
+import cib.edu.pe.ProyectoDSW_CherryBite.util.DtoUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,17 +18,27 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping(path = "api/cherry/usuario")
 public class UsuarioController {
+
+    private IUsuarioService iUsuarioService;
     private UsuarioService usuarioService;
+
     @GetMapping("")
-    public ResponseEntity<List<Usuario>> listResponseUsuario(){
-        List<Usuario> usuarioList=new ArrayList<>(usuarioService.listarUsuario());
-        if (usuarioList.isEmpty()){return  new ResponseEntity<>(HttpStatus.NO_CONTENT);}
-        return  new ResponseEntity<>(usuarioList, HttpStatus.OK);
+    public ResponseEntity<List<DtoEntity>> getAllUsuarios(){
+        List<DtoEntity>usuarioDtoList=new ArrayList<>();
+        usuarioDtoList=iUsuarioService.listarUsuario()
+                .stream()
+                .map(x -> new DtoUtil().convertirADto(x,new UsuarioDto()))
+                .collect(Collectors.toList());
+        if(usuarioDtoList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(usuarioDtoList, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

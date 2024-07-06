@@ -10,9 +10,4 @@ public class UsuarioDto implements DtoEntity{
     private String nombres;
     private String apellidos;
     private Boolean activo;
-    private Integer peso;
-    private Integer altura;
-    private Integer imc;
-    private Integer edad;
-    private Integer idsexo;
 }

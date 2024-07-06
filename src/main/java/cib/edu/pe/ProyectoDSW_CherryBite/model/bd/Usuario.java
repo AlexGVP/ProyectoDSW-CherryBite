@@ -1,5 +1,6 @@
 package cib.edu.pe.ProyectoDSW_CherryBite.model.bd;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -27,17 +28,18 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario",
             cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonIgnore
     private Set<DetalleAlimento> alimentosConsumidos = new HashSet<>();
 
     @OneToMany(mappedBy = "usuario",
             cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonIgnore
     private Set<DetalleHabito> habitosRealizados = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "usuario_rol",
             joinColumns = @JoinColumn(name = "idusuario"),
             inverseJoinColumns = @JoinColumn(name = "idrol"))
+    @JsonIgnore
     private Set<Rol> roles = new HashSet<>();
 }
