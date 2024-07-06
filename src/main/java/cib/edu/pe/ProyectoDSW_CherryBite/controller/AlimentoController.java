@@ -1,15 +1,16 @@
 package cib.edu.pe.ProyectoDSW_CherryBite.controller;
 
+import cib.edu.pe.ProyectoDSW_CherryBite.model.bd.DetalleAlimento;
 import cib.edu.pe.ProyectoDSW_CherryBite.model.dto.AlimentoDto;
+import cib.edu.pe.ProyectoDSW_CherryBite.model.dto.DetalleAlimentoDto;
 import cib.edu.pe.ProyectoDSW_CherryBite.model.dto.DtoEntity;
 import cib.edu.pe.ProyectoDSW_CherryBite.service.IAlimentoService;
+import cib.edu.pe.ProyectoDSW_CherryBite.service.IDetalleAlimentoService;
 import cib.edu.pe.ProyectoDSW_CherryBite.util.DtoUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 public class AlimentoController {
 
     private IAlimentoService iAlimentoService;
+    private IDetalleAlimentoService iDetalleAlimentoService;
 
     @GetMapping("")
     public ResponseEntity<List<DtoEntity>> getAllAlimentos(){
@@ -33,5 +35,15 @@ public class AlimentoController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(alimentoDtoList, HttpStatus.OK);
+    }
+
+    @PostMapping("/registrar")
+    public ResponseEntity<DetalleAlimento> registrarAlimento(@RequestBody DetalleAlimentoDto detalleAlimentoDto) {
+        try {
+            DetalleAlimento detalleAlimento = iDetalleAlimentoService.registrarAlimento(detalleAlimentoDto);
+            return new ResponseEntity<>(detalleAlimento, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

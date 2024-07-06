@@ -8,5 +8,4 @@ import java.util.Set;
 public class GrupoAlimentoDto implements DtoEntity{
     private Integer idgrupoalimento;
     private String descripcion;
-    private Set<AlimentoDto> alimentos;
 }

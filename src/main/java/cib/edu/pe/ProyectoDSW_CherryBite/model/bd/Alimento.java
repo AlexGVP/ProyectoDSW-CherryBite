@@ -18,6 +18,7 @@ public class Alimento {
     private Integer idalimento;
     private String nombre;
     private Integer porcion;
+
     @ManyToOne
     @JoinColumn(name = "idgrupoalimento")
     private GrupoAlimento grupoAlimento;
@@ -26,6 +27,10 @@ public class Alimento {
     @ManyToOne
     @JoinColumn(name = "idvalornutricional")
     private ValorNutricional valorNutricional;
+
+    @ManyToOne
+    @JoinColumn(name = "idunidadmedida")
+    private UnidadMedida unidadMedida;
 
     @OneToMany(mappedBy = "alimento",
             cascade = CascadeType.ALL, orphanRemoval = true)

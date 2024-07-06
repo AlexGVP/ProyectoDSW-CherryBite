@@ -68,7 +68,7 @@ public class AuthController {
                                 .collect(Collectors.toList())
                 )
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+ 1800000))
+                .setExpiration(new Date(System.currentTimeMillis()+ 3000000))
                 .signWith(SignatureAlgorithm.HS512, clave.getBytes())
                 .compact();
         return token;

@@ -9,4 +9,5 @@ public class DetalleAlimentoDto implements DtoEntity{
     private Integer idusuario;
     private Integer idalimento;
     private Date fecha;
+    private Integer cantidad;
 }

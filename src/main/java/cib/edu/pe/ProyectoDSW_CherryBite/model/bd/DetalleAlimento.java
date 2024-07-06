@@ -16,6 +16,7 @@ public class DetalleAlimento {
     @EmbeddedId
     private AlimentoUsuarioID id;
     private Date fecha;
+    private Integer cantidad;
 
     @ManyToOne
     @MapsId("idusuario")
