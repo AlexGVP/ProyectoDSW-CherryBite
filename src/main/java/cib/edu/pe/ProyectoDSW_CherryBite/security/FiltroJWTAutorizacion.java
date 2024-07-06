@@ -16,23 +16,23 @@ import java.util.stream.Collectors;
 
 public class FiltroJWTAutorizacion extends OncePerRequestFilter {
 
-    private final String CLAVE = "@chispa";
+    private final String CLAVE = "@Cibertec2024";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        try {
-            if (validarUsoToken(request)){
+        try{
+            if(validarUsoDeToken(request)){
                 Claims claims = validarToken(request);
-                if (claims.get("authorities")!=null){
-                    cargarAutorizaciones(claims);
-                }else {
+                if(claims.get("authorities") != null){
+                    crearAutenticacion(claims);
+                }else{
                     SecurityContextHolder.clearContext();
                 }
-            } else {
+            }else {
                 SecurityContextHolder.clearContext();
             }
-            filterChain.doFilter(request,response);
-        } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException ex){
+            filterChain.doFilter(request, response);
+        }catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException ex){
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             ((HttpServletResponse)response).sendError(
                     HttpServletResponse.SC_FORBIDDEN,
@@ -41,17 +41,18 @@ public class FiltroJWTAutorizacion extends OncePerRequestFilter {
         }
     }
 
-    private void cargarAutorizaciones(Claims claims){
-        List<String> authorizations = (List<String>)claims.get("authorities");
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(
-                        claims.getSubject(),
-                        null,
-                        authorizations.stream().map((SimpleGrantedAuthority::new))
-                                .collect(Collectors.toList())
-                );
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
+    private void crearAutenticacion(Claims claims){
+        List<String> autorizaciones = (List<String>) claims.get("authorities");
+        UsernamePasswordAuthenticationToken authenticationToken
+                = new UsernamePasswordAuthenticationToken(
+                claims.getSubject(),
+                null,
+                autorizaciones.stream().map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList())
+        );
+        SecurityContextHolder.getContext().setAuthentication(
+                authenticationToken
+        );
     }
 
     private Claims validarToken(HttpServletRequest request){
@@ -61,7 +62,7 @@ public class FiltroJWTAutorizacion extends OncePerRequestFilter {
                 .parseClaimsJws(token).getBody();
     }
 
-    private boolean validarUsoToken(HttpServletRequest request){
+    private boolean validarUsoDeToken(HttpServletRequest request){
         String autenticacion = request.getHeader("Authorization");
         if(autenticacion == null || !autenticacion.startsWith("Bearer ")){
             return false;

@@ -13,16 +13,4 @@ public class ProyectoDswCherryBiteApplication {
 
 		SpringApplication.run(ProyectoDswCherryBiteApplication.class, args);
 	}
-
-	@Bean
-	public WebMvcConfigurer configGlobalCors(){
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("api/cherry/**")
-						.allowedMethods("GET","POST","PUT")
-						.allowedOrigins("*");
-			}
-		};
-	}
 }
