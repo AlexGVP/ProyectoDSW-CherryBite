@@ -105,17 +105,34 @@ INSERT INTO `alimento` VALUES
 (10,'Mango',1,10,'Mango maduro','https://www.lavanguardia.com/files/image_449_220/files/fp/uploads/2022/09/16/6324ff625b7c2.r_d.1939-1331-2390.jpeg',10,2);
 
 DROP TABLE IF EXISTS `habito`;
-CREATE TABLE `habito` (
-  `idhabito` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(20) DEFAULT NULL,
-  `idcategoria` int NOT NULL,
-  PRIMARY KEY (`idhabito`),
-  KEY `idcategoria` (`idcategoria`),
-  CONSTRAINT `habito_ibfk_1` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`idcategoria`)
+create table habito
+( 
+	idhabito             int not null primary key auto_increment,
+	descripcion          varchar(45),
+	idcategoria          int not null,
+	frecuencia           varchar(20),
+	horadia              time,
+	fechainicio          date,
+	fechafin             date,
+	progreso             int,
+	foreign key (idcategoria) references categoria(idcategoria)
 );
-INSERT INTO `habito` VALUES 
-(1,'Leer',1),(2,'Dormir 8 horas',2),(3,'Hacer ejercicio',3),(4,'Cocinar en casa',4),
-(5,'Ver series',5);
+INSERT INTO habito (idhabito,descripcion, idcategoria, frecuencia, horadia, fechainicio, fechafin, progreso) VALUES
+    (1,'Hábito 1', 1, 'Diario', '08:00:00', '2023-01-01', null, 50),
+    (2,'Hábito 2', 2, 'Semanal', '20:00:00', '2023-01-02', '2023-12-31', 75),
+    (3,'Hábito 3', 3, 'Diario', '10:00:00', '2023-01-03', '2023-06-30', 60),
+    (4,'Hábito 4', 4, 'Quincenal', '09:00:00', '2023-01-04', null, 40),
+    (5,'Hábito 5', 5, 'Semanal', '18:00:00', '2023-01-05', '2023-11-30', 80),
+    (6,'Hábito 6', 1, 'Diario', '07:00:00', '2023-01-06', '2023-07-31', 55),
+    (7,'Hábito 7', 2, 'Mensual', '12:00:00', '2023-01-07', null, 70),
+    (8,'Hábito 8', 3, 'Semanal', '19:00:00', '2023-01-08', '2023-10-31', 85),
+    (9,'Hábito 9', 4, 'Diario', '06:00:00', '2023-01-09', '2023-08-31', 65),
+    (10,'Hábito 10', 5, 'Mensual', '14:00:00', '2023-01-10', null, 45),
+    (11,'Hábito 11', 1, 'Semanal', '17:00:00', '2023-01-11', '2023-09-30', 90),
+    (12,'Hábito 12', 2, 'Diario', '11:00:00', '2023-01-12', '2023-07-31', 58),
+    (13,'Hábito 13', 3, 'Quincenal', '15:00:00', '2023-01-13', null, 35),
+    (14,'Hábito 14', 4, 'Semanal', '16:00:00', '2023-01-14', '2023-12-31', 72),
+    (15,'Hábito 15', 5, 'Diario', '13:00:00', '2023-01-15', '2023-08-31', 68);
 
 DROP TABLE IF EXISTS `noticia`;
 CREATE TABLE `noticia` (
@@ -155,14 +172,15 @@ CREATE TABLE `detalle_alimento` (
 INSERT INTO `detalle_alimento` VALUES 
 ('2024-07-01',2,1,1),('2024-07-01',1,2,2),('2024-07-01',3,3,3);
 
-DROP TABLE IF EXISTS `detalle_habito`;
-CREATE TABLE `detalle_habito` (
-  `fecha` date DEFAULT NULL,
-  `idhabito` int NOT NULL,
-  `idusuario` int NOT NULL,
-  PRIMARY KEY (`idhabito`,`idusuario`),
-  CONSTRAINT `detalle_habito_ibfk_1` FOREIGN KEY (`idhabito`) REFERENCES `habito` (`idhabito`),
-  CONSTRAINT `detalle_habito_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`)
+create table detalle_habito
+(
+	idusuario            int not null,
+	idhabito             int not null,
+	realizado            boolean,
+    fecha				timestamp default CURRENT_TIMESTAMP,
+	foreign key (idusuario) references usuario(idusuario),
+	foreign key (idhabito) references habito(idhabito),
+    primary key(idusuario,idhabito)
 );
-INSERT INTO `detalle_habito` VALUES 
-('2024-07-01',1,1),('2024-07-01',2,2),('2024-07-01',3,3);
+INSERT INTO `detalle_habito`(fecha,realizado,idusuario,idhabito) VALUES 
+('2024-07-01',1,1,1),('2024-07-01',0,2,2),('2024-07-01',1,3,3);
