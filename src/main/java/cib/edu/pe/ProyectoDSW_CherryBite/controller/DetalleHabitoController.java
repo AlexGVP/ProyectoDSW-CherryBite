@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(path = "/api/cherry/detalleHabito")
+@RequestMapping(path = "/api/cherry/detallehabito")
 public class DetalleHabitoController {
 
 

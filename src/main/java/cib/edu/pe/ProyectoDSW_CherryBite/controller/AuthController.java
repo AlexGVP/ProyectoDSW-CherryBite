@@ -1,7 +1,7 @@
 package cib.edu.pe.ProyectoDSW_CherryBite.controller;
 
 import cib.edu.pe.ProyectoDSW_CherryBite.model.bd.Usuario;
-import cib.edu.pe.ProyectoDSW_CherryBite.model.response.UsuarioResponse;
+import cib.edu.pe.ProyectoDSW_CherryBite.model.response.UsuarioSeguridadDto;
 import cib.edu.pe.ProyectoDSW_CherryBite.service.DetalleUsuarioService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -29,7 +29,7 @@ public class AuthController {
 
     @PostMapping("/login")
     @Transactional(readOnly = true)
-    public ResponseEntity<UsuarioResponse> autenticarUsuario(
+    public ResponseEntity<UsuarioSeguridadDto> autenticarUsuario(
             @RequestParam("usuario") String usuario,
             @RequestParam("password") String password
     ) throws Exception {
@@ -41,11 +41,11 @@ public class AuthController {
             if(authentication.isAuthenticated()){
                 Usuario objUsuario = detalleUsuarioService.findByNomusuario(usuario);
                 String token = generarToken(objUsuario);
-                UsuarioResponse usuarioResponse =
-                        new UsuarioResponse(objUsuario.getIdusuario(),
+                UsuarioSeguridadDto usuarioSeguridad =
+                        new UsuarioSeguridadDto(objUsuario.getIdusuario(),
                                 usuario,
                                 token);
-                return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
+                return new ResponseEntity<>(usuarioSeguridad, HttpStatus.OK);
             }else {
                 return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
             }

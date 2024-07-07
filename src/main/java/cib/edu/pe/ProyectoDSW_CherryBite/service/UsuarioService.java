@@ -54,8 +54,10 @@ public class UsuarioService implements IUsuarioService{
         if (usuarioExistente != null) {
             usuarioExistente.setNomusuario(actualizarUsuario.getNomusuario());
             usuarioExistente.setEmail(actualizarUsuario.getEmail());
+            usuarioExistente.setPassword(actualizarUsuario.getPassword());
             usuarioExistente.setNombres(actualizarUsuario.getNombres());
             usuarioExistente.setApellidos(actualizarUsuario.getApellidos());
+            usuarioExistente.setActivo(actualizarUsuario.getActivo());
             return usuarioRepository.save(usuarioExistente);
         }
         return null;

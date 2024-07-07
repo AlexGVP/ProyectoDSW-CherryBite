@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 @AllArgsConstructor
 @RestController
-@RequestMapping(path = "api/cherry/alimentoconsumido")
+@RequestMapping(path = "api/cherry/detallealimento")
 public class DetalleAlimentoController {
+
     private IDetalleAlimentoService iDetalleAlimentoService;
-    @GetMapping("/consultarAlimentos")
+    @GetMapping("")
     public ResponseEntity<List<DtoEntity>> getAllAlimentosRegistrdos(){
         List<DtoEntity>detalleAlimentoDto2=new ArrayList<>();
         detalleAlimentoDto2=iDetalleAlimentoService.listadoComidasRegistradas()
