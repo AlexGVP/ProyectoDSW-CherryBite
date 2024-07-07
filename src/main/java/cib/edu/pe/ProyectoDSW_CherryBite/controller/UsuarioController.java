@@ -42,9 +42,9 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscarUsuario(@PathVariable Integer id){
+    public ResponseEntity<Usuario> buscarIdUsuario(@PathVariable Integer id){
         Usuario usuarioid=usuarioService.buscarusuarioPorId(id).orElseThrow(
-                ()->new ResourceNotFoundException("El ID " + id + " no existe D:")
+                ()->new ResourceNotFoundException("No existe")
         );
         return new ResponseEntity<>(usuarioid,HttpStatus.OK);
 
@@ -54,11 +54,11 @@ public class UsuarioController {
     public ResponseEntity<ApiResponse> nuevoUsuario(@RequestBody Usuario usuario){
         try {
             Usuario nuevousuario = usuarioService.nuevoUsuario(usuario);
-            return ResponseEntity.ok(new ApiResponse(true, "Usuario registrado"));
+            return ResponseEntity.ok(new ApiResponse(true, "Creado"));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponse(false, "Error al registrar el usuario D: " + e.getMessage()));
+                    .body(new ApiResponse(false, "Error: " + e.getMessage()));
         }
     }
 
@@ -66,11 +66,11 @@ public class UsuarioController {
     public ResponseEntity<ApiResponse> actualizarUsuario(@PathVariable Integer id, @RequestBody Usuario usuario){
         try {
             Usuario actualizarusuario = usuarioService.actualizarUsuario(id, usuario);
-            return ResponseEntity.ok(new ApiResponse(true, "Usuario actualizado"));
+            return ResponseEntity.ok(new ApiResponse(true, "Actualizado"));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponse(false, "Error al actualizar el usuario D: " + e.getMessage()));
+                    .body(new ApiResponse(false, "Error: " + e.getMessage()));
         }
     }
 

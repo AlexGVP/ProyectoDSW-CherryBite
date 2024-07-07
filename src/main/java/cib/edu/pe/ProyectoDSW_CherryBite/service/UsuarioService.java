@@ -41,7 +41,7 @@ public class UsuarioService implements IUsuarioService{
 
     @Override
     public Usuario nuevoUsuario(Usuario usuario) {
-        Rol rolPorDefecto = rolRepository.findById(2)
+        Rol rolPorDefecto = rolRepository.findById(1)
                 .orElseThrow(() -> new ResourceNotFoundException("no se encontró el rol"));
         usuario.setRoles(Collections.singleton(rolPorDefecto));
         usuario.setPassword(bCryptPasswordEncoder.encode(
