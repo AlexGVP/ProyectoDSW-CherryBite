@@ -55,7 +55,7 @@ public class AuthController {
     }
 
     private String generarToken(Usuario objUsuario){
-        String clave = "@Cibertec2024"; // dinamico desde la BD
+        String clave = "@Cibertec2024";
         List<GrantedAuthority> grantedAuthorityList =
                 detalleUsuarioService.obtenerListaRolesUsuario(objUsuario.getRoles());
         String token = Jwts
