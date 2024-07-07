@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 public class AlimentoController {
 
     private IAlimentoService iAlimentoService;
-    private IDetalleAlimentoService iDetalleAlimentoService;
 
     @GetMapping("")
     public ResponseEntity<List<DtoEntity>> getAllAlimentos(){
@@ -36,28 +35,5 @@ public class AlimentoController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(alimentoDtoList, HttpStatus.OK);
-    }
-
-    @GetMapping("/consultarAlimentos")
-    public ResponseEntity<List<DtoEntity>> getAllAlimentosRegistrdos(){
-        List<DtoEntity>detalleAlimentoDto2=new ArrayList<>();
-        detalleAlimentoDto2=iDetalleAlimentoService.listadoComidasRegistradas()
-                .stream()
-                .map(x -> new DtoUtil().convertirADto(x,new DetalleAlimentoDto2()))
-                .collect(Collectors.toList());
-        if(detalleAlimentoDto2.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(detalleAlimentoDto2, HttpStatus.OK);
-    }
-
-    @PostMapping("/registrar")
-    public ResponseEntity<DetalleAlimento> registrarAlimento(@RequestBody DetalleAlimentoDto detalleAlimentoDto) {
-        try {
-            DetalleAlimento detalleAlimento = iDetalleAlimentoService.registrarAlimento(detalleAlimentoDto);
-            return new ResponseEntity<>(detalleAlimento, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 }
