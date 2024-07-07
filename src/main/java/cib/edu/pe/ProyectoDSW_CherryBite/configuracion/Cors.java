@@ -1,19 +1,19 @@
-package cib.edu.pe.ProyectoDSW_CherryBite.config;
+package cib.edu.pe.ProyectoDSW_CherryBite.configuracion;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class CorsConfig implements WebMvcConfigurer {
+public class Cors implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:4200")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS")
-                .allowedHeaders("*")
-                .allowCredentials(true);
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS")//métodos HTTP permitidos
+                .allowedHeaders("*")//Esto permite todas las cabeceras en las solicitudes
+                .allowCredentials(true);    // permite el envío de credenciales
     }
 
 }
