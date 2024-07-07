@@ -42,35 +42,35 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscarIdResponseUsuario(@PathVariable Integer id){
+    public ResponseEntity<Usuario> buscarIdUsuario(@PathVariable Integer id){
         Usuario usuarioid=usuarioService.buscarusuarioPorId(id).orElseThrow(
-                ()->new ResourceNotFoundException("El usario con el id "+id+" no existe")
+                ()->new ResourceNotFoundException("No existe")
         );
         return new ResponseEntity<>(usuarioid,HttpStatus.OK);
 
     }
 
     @PostMapping("")
-    public ResponseEntity<ApiResponse> nuevoResponseUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<ApiResponse> nuevoUsuario(@RequestBody Usuario usuario){
         try {
             Usuario nuevousuario = usuarioService.nuevoUsuario(usuario);
-            return ResponseEntity.ok(new ApiResponse(true, "Usuario creado exitosamente"));
+            return ResponseEntity.ok(new ApiResponse(true, "Creado"));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponse(false, "Error al crear el usuario: " + e.getMessage()));
+                    .body(new ApiResponse(false, "Error: " + e.getMessage()));
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse> actualizarResponseUsuario(@PathVariable Integer id, @RequestBody Usuario usuario){
+    public ResponseEntity<ApiResponse> actualizarUsuario(@PathVariable Integer id, @RequestBody Usuario usuario){
         try {
             Usuario actualizarusuario = usuarioService.actualizarUsuario(id, usuario);
-            return ResponseEntity.ok(new ApiResponse(true, "Usuario actualizado exitosamente"));
+            return ResponseEntity.ok(new ApiResponse(true, "Actualizado"));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponse(false, "Error al actualizar el usuario: " + e.getMessage()));
+                    .body(new ApiResponse(false, "Error: " + e.getMessage()));
         }
     }
 
